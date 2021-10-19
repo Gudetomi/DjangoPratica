@@ -1,0 +1,21 @@
+from django.shortcuts import render, redirect
+from django.forms import ModelForm
+from .models import *
+# Create your views here.
+
+class LivroForm(ModelForm):
+    class Meta:
+        model = Livro
+        fields = ['autor','editora','isbn','numeroPaginas','titulo','anoPublicacao','emailEditora']
+
+def livro_list(request, template_name = 'livro_list.html'):
+    livro = Livro.objects.all()
+    livros = {'lista':livro}
+    return render(request,template_name,livros)
+
+def livro_new(request, template_name = 'livro_form.html'):
+    form = Livro(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('listar_livros')
+    return render(request,template_name,{'form':form})
