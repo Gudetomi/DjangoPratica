@@ -16,19 +16,28 @@ Listagem de Livros
         <th>Autor</th>
         <th>Titulo</th>
         <th>Ano</th>
+        <th>Ação</th>
     </tr>
 </thead>
     <tbody>
     {% for livro in lista %}
         <tr>
             <td>{{ livro.autor }}</td>
-            <td>{{ livro.titulo }}}</td>
+            <td>{{ livro.titulo }}</td>
             <td>{{ livro.anoPublicacao }}</td>
+            <td>
+                <a href = "{% url 'rota:livro_edit' livro.pk %}">
+                    <span class = "glyphicon glyphicon-pencil"></span>
+                </a>
+                <a href = "{% url 'rota:livro_remove' livro.pk %}">
+                    <span class = "glyphicon glyphicon-trash"></span>
+                </a>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-<a href="#">
+<a href="{% url 'rota:livro_new' %}">
 <button type="submit" class="btn btn-primary">
     Cadastramento
 </button>
